@@ -1,0 +1,37 @@
+<html>
+<head>
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <style>
+  </style>
+</head>
+<body>
+  <form id="btn">
+      <button id="submit" type="submit">Submit</button>
+  </form>
+  <div id="content"></div>
+  <script>
+      var post = function (data) {
+          var xmlhttp = new XMLHttpRequest();
+          xmlhttp.open("POST", "http://localhost:5000/review", true);
+          xmlhttp.send(data);
+          xmlhttp.onreadystatechange = function () {
+              var container = document.getElementById('content');
+              if (this.readyState == 4 && this.status == 200) {
+                  console.log(this.response);
+                }
+              else if (this.readyState == 4 && this.status == 404) {
+                  console.log("Bad Request");
+              }
+          };
+      }
+      var form = document.getElementById('btn');
+      form.onsubmit = function(evt) {
+          evt.preventDefault();
+          var data = new FormData();
+          data.append('username', 'ambrose');
+          post(data);
+      };
+  </script>
+</body>
+</html>
